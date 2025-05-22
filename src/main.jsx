@@ -11,6 +11,7 @@ import MainLayout from './Layouts/MainLayout.jsx';
 import Home from './Pages/Home.jsx';
 import AddCoffee from './Component/AddCoffee.jsx';
 import UpdateCoffee from './Component/UpdateCoffee.jsx';
+import CoffeeDetails from './Component/CoffeeDetails.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,12 @@ const router = createBrowserRouter([
       {
         path:"/UpdateCoffee",
         Component:UpdateCoffee,
+      },
+      {
+        path:'/coffees/:id',
+        Component:CoffeeDetails,
+        loader: () => fetch('http://localhost:3000/coffees'),
+        hydrateFallbackElement: <h2>Loading...</h2>
       }
     ]
   },

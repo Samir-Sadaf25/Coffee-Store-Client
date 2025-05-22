@@ -1,13 +1,17 @@
 import React from 'react';
 import Header from '../Component/Header';
 import { Outlet } from 'react-router';
+import Navber from '../Component/Navber';
+import Home from '../Pages/Home';
 
 const MainLayout = () => {
     return (
         <div>
-            <Header></Header>
-            <div className='max-w-7xl mx-auto'>
-                <Outlet></Outlet>
+            <Navber></Navber>
+            <div >
+                <Outlet>
+                    <Home></Home>
+                </Outlet>
             </div>
         </div>
     );
