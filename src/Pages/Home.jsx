@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import CoffeeCard from '../Component/CoffeeCard';
 import Header from '../Component/Header';
@@ -6,8 +6,7 @@ import Header from '../Component/Header';
 const Home = () => {
 
     const coffeeData = useLoaderData();
-    // console.log(allCoffees);
-
+    const [coffees,setCoffees] = useState(coffeeData);
     return (
         <div>
             <Header></Header>
@@ -18,8 +17,8 @@ const Home = () => {
                     <Link to={"/addCoffee"}><button className='btn bg-[#E3B577]'>Add Coffee</button></Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {coffeeData.map((coffee, index) => (
-                        <CoffeeCard key={index} coffee={coffee} />
+                    {coffees.map((coffee, index) => (
+                        <CoffeeCard key={index} coffee={coffee} coffees={coffees} setCoffees = {setCoffees} />
                     ))}
                 </div>
             </div>
