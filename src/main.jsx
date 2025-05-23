@@ -29,8 +29,10 @@ const router = createBrowserRouter([
         Component:AddCoffee
       },
       {
-        path:"/UpdateCoffee",
+        path:"/UpdateCoffee/:id",
+        loader: ({params}) => fetch(`http://localhost:3000/coffees/${params.id}`),
         Component:UpdateCoffee,
+        hydrateFallbackElement: <h3>Loading...</h3>
       },
       {
         path:'/coffees/:id',

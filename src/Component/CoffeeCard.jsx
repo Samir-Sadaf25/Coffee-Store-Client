@@ -58,9 +58,9 @@ const CoffeeCard = ({ coffee }) => {
                 <Link to={`/coffees/${_id}`}><button className="hover:bg-gray-200">
                     <IoEyeOutline size={20} />
                 </button></Link>
-                <button className="text-blue-500 hover:text-blue-700">
+                <Link to={`/updateCoffee/${_id}`}> <button className="text-blue-500 hover:text-blue-700">
                     <FaEdit size={20} />
-                </button>
+                </button></Link>
                 <button onClick={() => handleDelete(_id)} className="text-red-500 hover:text-red-700">
                     <FaTrash size={20} />
                 </button>
