@@ -1,6 +1,7 @@
 import React, { use } from 'react';
-import { Link} from 'react-router';
+import { Link } from 'react-router';
 import { AuthContext } from '../Provider/AuthContext';
+import Swal from 'sweetalert2';
 // import { AuthContext } from '../Provider/AuthProvider';
 
 const Registar = () => {
@@ -8,14 +9,39 @@ const Registar = () => {
     const handleRegistar = (e) => {
         e.preventDefault();
         const form = e.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        const photo = form.photo.value;
+
+        const formData = new FormData(form)
+        const { email, password, ...restFormData } = Object.fromEntries(formData.entries());
+        // console.log(restFormData);
+
 
         createUser(email, password)
             .then(result => {
-                const user = result.user;
+                const userProfile = {
+                    email,
+                    ...restFormData,
+                    creationTime: result.user?.metadata?.creationTime,
+                    lastSignInTime: result.user?.metadata?.lastSignInTime
+                }
+                fetch('http://localhost:3000/users', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(restFormData)
+
+                }).then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            Swal.fire({
+                                title: "acoount created Successfully",
+                                icon: "success",
+                                draggable: true
+
+                            });
+                        }
+                    })
+
 
             }).catch(error => {
                 // console.log(error.message);
